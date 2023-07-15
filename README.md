@@ -4,6 +4,12 @@ This website is for generating pdf out of given html template.
 
 ---
 
+## Site
+
+Site is live at https://nirajgirixd.github.io/PDF-Generator/
+
+---
+
 ## External Resources Used:
 
 - html2pdf:
