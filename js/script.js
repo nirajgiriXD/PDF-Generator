@@ -102,7 +102,7 @@ function generateZIP() {
 // Download.
 downloadBtn.addEventListener("click", function(event) {
     event.preventDefault();
-    if (numOfHtmlPlaceholder === numOfExcelColsPlaceholder) {
+    if ((numOfHtmlPlaceholder === numOfExcelColsPlaceholder) && (0 !== numOfHtmlPlaceholder)) {
         generateZIP();
     } else {
         submitMsg.innerText = 'Number of placeholder values did not match';
