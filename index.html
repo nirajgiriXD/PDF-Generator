@@ -8,12 +8,56 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/fontawesome.min.css">
+
 </head>
 
 <body>
+
+    <main class="container my-4">
+        <div class="main p-5">
+            <form method="POST" enctype="multipart/form-data">
+                <div class="my-3">
+                    <div>
+                        <label for="upload-html-template" class="form-label">Upload html template file</label>
+                        <label class="float-end">
+                            <!-- Number of placeholders -->
+                            [<span id="html-template-placeholder-count">0</span>]
+                        </label>
+                    </div>
+                    <!-- Upload html -->
+                    <input class="form-control" type="file" accept=".html" id="html-template" required>
+                </div>
+                <br>
+                <div class="mb-3">
+                    <div>
+                        <label for="upload-excel-sheet" class="form-label">Upload excel sheet file</label>
+                        <label class="float-end">
+                            <!-- Number of rows -->
+                            [<span id="excel-rows-placeholder-count">0</span>]
+                            <!-- Number of columns -->
+                            [<span id="excel-cols-placeholder-count">0</span>]
+                        </label>
+                    </div>
+                    <!-- Upload excel file -->
+                    <input class="form-control" type="file" accept=".xlsx, .xls" id="excel-sheet" required>
+                </div>
+                <br>
+                <div class="mb-3">
+                    <label id="submit-msg" class="text-danger"></label>
+                    <button type="submit" class="btn btn-primary mb-3 float-end" id="download-btn">Download</button>
+                </div>
+            </form>
+        </div>
+        <!-- Display error message -->
+        <div id="html-content" hidden="hidden"></div>
+    </main>
+
+    <script src="js/read-excel-file.min.js"></script>
     <script src="js/fontawesome.min.js"></script>
+    <script src="js/filesaver.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/html2pdf.min.js"></script>
+    <script src="js/jszip.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 
