@@ -1,6 +1,6 @@
 ## Description
 
-This website is for creating pdf out of given html template.
+This website is for generating pdf out of given html template.
 
 ---
 
