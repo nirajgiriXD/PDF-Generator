@@ -102,8 +102,12 @@ function generateZIP() {
 // Download.
 downloadBtn.addEventListener("click", function(event) {
     event.preventDefault();
-    if ((numOfHtmlPlaceholder === numOfExcelColsPlaceholder) && (0 !== numOfHtmlPlaceholder)) {
-        generateZIP();
+    if (numOfHtmlPlaceholder === numOfExcelColsPlaceholder) {
+        if (0 === numOfHtmlPlaceholder) {
+            submitMsg.innerText = 'Upload required files';
+        } else {
+            generateZIP();
+        }
     } else {
         submitMsg.innerText = 'Number of placeholder values did not match';
     }
