@@ -16,6 +16,7 @@ const excelColsPlaceholderCount = document.getElementById("excel-cols-placeholde
 
 // Variables.
 let htmlFileContent = '';
+let excelSheetFile = null;
 let excelFileContent = [];
 let numOfHtmlPlaceholder = 0;
 let numOfExcelRowsPlaceholder = 0;
@@ -26,13 +27,37 @@ let numOfExcelColsPlaceholder = 0;
  */
 
 // Generate appearance of pdf.
-function generateTemplate(columns) {
-    let pdfContent = '';
-    columns.forEach((column) => {
-        pdfContent += `<p>${column}</p>`;
-    });
-    pdfContent = '<div>' + pdfContent + '</div>';
-    return pdfContent;
+function generateTemplate(row) {
+    // let pdfContent = '';
+    // row.forEach((column) => {
+    //     pdfContent += `<p>${column}</p>`;
+    // });
+    // pdfContent = '<div>' + pdfContent + '</div>';
+
+    // DOMParser instance.
+    const parser = new DOMParser();
+
+    // Parse the HTML string to create a DOM structure
+    const doc = parser.parseFromString(htmlFileContent, 'text/html');
+
+    // Select elements with the class name 'dynamic-value'.
+    let elements = doc.querySelectorAll('.dynamic-value');
+
+    // Loop through the elements and update innerText from the array.
+    for (let i = 0; i < elements.length; i++) {
+        var currentElement = elements[i];
+        if (row[i]) {
+            currentElement.innerText = row[i];
+        }
+    }
+
+    // return pdfContent;
+
+    // Convert the modified DOM structure back to a string
+    const modifiedHtmlString = new XMLSerializer().serializeToString(doc);
+
+    // return modifiedHtmlString;
+    return modifiedHtmlString;
 }
 
 // Convert template into pdf.
@@ -54,9 +79,9 @@ function generatePDF(pdfContent) {
 function generateZIP() {
     const pdfPromises = [];
     const zip = new JSZip();
-    excelFileContent.forEach(async(columns) => {
+    excelFileContent.forEach(async(row) => {
         // Add to zip file list.
-        pdfPromises.push(generatePDF(generateTemplate(columns)));
+        pdfPromises.push(generatePDF(generateTemplate(row)));
     });
 
     // Wait for all PDF generation promises to resolve
@@ -97,14 +122,10 @@ htmlTemplate.addEventListener("change", function(event) {
 
 // Excel sheet file select.
 excelSheet.addEventListener("change", function(event) {
-    const file = event.target.files[0];
-    readXlsxFile(file).then((rows) => {
-        // Remove heading (first row).
-        if (bypassFirstRow.checked) {
+    excelSheetFile = event.target.files[0];
+    readXlsxFile(excelSheetFile).then((rows) => {
+        if (bypassFirstRow.checked) {    // Exclude first row.
             rows.splice(0, 1);
-            console.log('true');
-        } else {
-            console.log('false');
         }
         excelFileContent = rows;
         numOfExcelRowsPlaceholder = rows.length;
@@ -115,6 +136,25 @@ excelSheet.addEventListener("change", function(event) {
             excelColsPlaceholderCount.innerText = numOfExcelColsPlaceholder;
         }
     });
+}, false);
+
+// Checkbox event
+bypassFirstRow.addEventListener("change", function(event) {
+    if (excelSheetFile) {
+        readXlsxFile(excelSheetFile).then((rows) => {
+            if (bypassFirstRow.checked) {    // Exclude first row.
+                rows.splice(0, 1);
+            }
+            excelFileContent = rows;
+            numOfExcelRowsPlaceholder = rows.length;
+            excelRowsPlaceholderCount.innerText = numOfExcelRowsPlaceholder;
+    
+            if (0 < numOfExcelRowsPlaceholder) {
+                numOfExcelColsPlaceholder = rows[0].length;
+                excelColsPlaceholderCount.innerText = numOfExcelColsPlaceholder;
+            }
+        });
+    }
 }, false);
 
 // Download Button.
