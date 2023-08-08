@@ -41,9 +41,17 @@
                     <input class="form-control" type="file" accept=".xlsx, .xls" id="excel-sheet" required>
                 </div>
                 <br>
-                <div class="mb-3">
-                    <label id="submit-msg" class="text-danger"></label>
-                    <button type="submit" class="btn btn-primary mb-3 float-end" id="download-btn">Download</button>
+                <div class="mb-3 d-flex justify-content-between">
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="bypass-first-row">
+                            <label class="form-check-label" for="bypass-first-row">Exclude first row of excel sheet</label>
+                        </div>
+                    </div>
+                    <div>
+                        <label id="submit-msg" class="text-danger"></label>
+                        <button type="submit" class="btn btn-primary" id="download-btn">Download</button>
+                    </div>
                 </div>
             </form>
         </div>
