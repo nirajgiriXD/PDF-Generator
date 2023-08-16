@@ -24,5 +24,3 @@ This website is for generating pdf out of given html template.
 - bootstrap:
   - https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js
   - https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css
-
-XD
