@@ -1,7 +1,8 @@
 ## Site
 
 Site: https://nirajgirixd.github.io/pdf-generator/  
-Usage: `WORKFLOW.md`
+
+For development, please follow the [WORKFLOW.md](https://github.com/nirajgiriXD/pdf-generator/blob/main/WORKFLOW.md) file.
 
 ---
 
